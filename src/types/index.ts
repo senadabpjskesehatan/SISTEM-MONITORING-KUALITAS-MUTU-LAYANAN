@@ -27,14 +27,24 @@ export interface Ticket {
   samplingId?: string;
 }
 
+export type IndicatorNilaiKey = 'N/A' | '0' | '1' | '2' | '3';
+
+export interface IndicatorNilaiOption {
+  nilai: IndicatorNilaiKey;
+  label: string;
+  enabled: boolean;
+  referensiKetentuan: string;
+}
+
 export interface Indicator {
   id: string;
   nama: string;
   deskripsi: string;
   bobot: number;           // Persentase bobot nilai (e.g. 20)
-  skalaMin: number;        // Skala minimal (default 0)
-  skalaMax: number;        // Skala maksimal (default 100)
+  skalaMin?: number;       // Skala minimal (default 0)
+  skalaMax?: number;       // Skala maksimal (default 100)
   kriteriaContoh?: string[];
+  pilihanNilai?: IndicatorNilaiOption[]; // Pilihan nilai N/A, 0, 1, 2, 3 beserta nilai referensi ketentuan
 }
 
 export interface IndicatorScore {

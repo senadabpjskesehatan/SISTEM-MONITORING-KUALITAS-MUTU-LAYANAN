@@ -917,6 +917,39 @@ export const INITIAL_USERS: User[] = [
   },
 ];
 
+export const DEFAULT_NILAI_OPTIONS: import('../types').IndicatorNilaiOption[] = [
+  {
+    nilai: 'N/A',
+    label: 'N/A - Tidak Relevan / Tidak Berlaku',
+    enabled: true,
+    referensiKetentuan: 'Indikator tidak relevan atau tidak dapat diterapkan pada konteks permasalahan tiket ini.',
+  },
+  {
+    nilai: '0',
+    label: '0 - Tidak Memenuhi Ketentuan',
+    enabled: true,
+    referensiKetentuan: 'Tidak memenuhi ketentuan standar SOP sama sekali, terdapat kesalahan fatal atau informasi yang salah.',
+  },
+  {
+    nilai: '1',
+    label: '1 - Kurang Sesuai Ketentuan',
+    enabled: true,
+    referensiKetentuan: 'Hanya sebagian kecil parameter ketentuan terpenuhi, terdapat beberapa poin kelalaian atau penjelasan menggantung.',
+  },
+  {
+    nilai: '2',
+    label: '2 - Cukup Sesuai Ketentuan',
+    enabled: true,
+    referensiKetentuan: 'Sebagian besar parameter ketentuan terpenuhi dengan baik, hanya terdapat kekurangan minor yang tidak mempengaruhi substansi solusi.',
+  },
+  {
+    nilai: '3',
+    label: '3 - Sangat Sesuai / Sempurna',
+    enabled: true,
+    referensiKetentuan: 'Jawaban sepenuhnya akurat, lengkap, santun, tuntas, dan memenuhi seluruh regulasi serta SOP BPJS Kesehatan.',
+  },
+];
+
 export const INITIAL_INDICATORS: Indicator[] = [
   {
     id: 'IND-01',
@@ -925,6 +958,38 @@ export const INITIAL_INDICATORS: Indicator[] = [
     bobot: 15,
     skalaMin: 0,
     skalaMax: 100,
+    pilihanNilai: [
+      {
+        nilai: 'N/A',
+        label: 'N/A - Tidak Relevan',
+        enabled: true,
+        referensiKetentuan: 'Tiket berupa penutupan sistem otomatis atau pesan non-interaktif tanpa ruang salam pembuka.',
+      },
+      {
+        nilai: '0',
+        label: '0 - Tidak Memenuhi',
+        enabled: true,
+        referensiKetentuan: 'Tidak ada salam pembuka, tidak menyebut nama peserta, intonasi ketus atau tidak sopan.',
+      },
+      {
+        nilai: '1',
+        label: '1 - Kurang Sesuai',
+        enabled: true,
+        referensiKetentuan: 'Hanya ada salam singkat tanpa menyebut nama peserta dan tanpa kalimat empati atas kesulitan peserta.',
+      },
+      {
+        nilai: '2',
+        label: '2 - Cukup Sesuai',
+        enabled: true,
+        referensiKetentuan: 'Menyampaikan salam dan menyebut nama peserta, namun ungkapan empati masih minim atau formalitas.',
+      },
+      {
+        nilai: '3',
+        label: '3 - Sangat Sesuai',
+        enabled: true,
+        referensiKetentuan: 'Salam lengkap sesuai SOP, menyebut nama peserta dengan hormat, empati tulus, dan bahasa sangat santun.',
+      },
+    ],
     kriteriaContoh: [
       'Menyapa peserta dengan hangat dan menyebut nama peserta/pelapor.',
       'Menunjukkan kalimat empati atas kesulitan yang dihadapi pemohon.',
@@ -938,6 +1003,38 @@ export const INITIAL_INDICATORS: Indicator[] = [
     bobot: 30,
     skalaMin: 0,
     skalaMax: 100,
+    pilihanNilai: [
+      {
+        nilai: 'N/A',
+        label: 'N/A - Tidak Relevan',
+        enabled: true,
+        referensiKetentuan: 'Pesan hanya berupa penerusan berkas tanpa klausul hukum atau informasi regulasi spesifik.',
+      },
+      {
+        nilai: '0',
+        label: '0 - Tidak Memenuhi',
+        enabled: true,
+        referensiKetentuan: 'Informasi dasar hukum keliru, bertentangan dengan Perpres/Perdir/SOP BPJS, atau menjanjikan hal di luar wewenang.',
+      },
+      {
+        nilai: '1',
+        label: '1 - Kurang Sesuai',
+        enabled: true,
+        referensiKetentuan: 'Informasi regulasi sebagian benar namun terdapat pasal/ketentuan krusial yang keliru atau syarat dokumen tertinggal.',
+      },
+      {
+        nilai: '2',
+        label: '2 - Cukup Sesuai',
+        enabled: true,
+        referensiKetentuan: 'Regulasi dan SOP yang dikutip tepat, alur prosedur benar, hanya penjelasan teknis syarat pendukung kurang terperinci.',
+      },
+      {
+        nilai: '3',
+        label: '3 - Sangat Sesuai',
+        enabled: true,
+        referensiKetentuan: 'Informasi 100% akurat sesuai regulasi/SOP terbaru, dasar hukum tepat, syarat dan alur sangat jelas serta terverifikasi.',
+      },
+    ],
     kriteriaContoh: [
       'Informasi dasar hukum/peraturan dan SOP disampaikan secara tepat.',
       'Tidak ada disinformasi atau menjanjikan hal di luar wewenang.',
@@ -951,6 +1048,38 @@ export const INITIAL_INDICATORS: Indicator[] = [
     bobot: 25,
     skalaMin: 0,
     skalaMax: 100,
+    pilihanNilai: [
+      {
+        nilai: 'N/A',
+        label: 'N/A - Tidak Relevan',
+        enabled: true,
+        referensiKetentuan: 'Tiket konfirmasi status yang sudah terselesaikan sebelumnya.',
+      },
+      {
+        nilai: '0',
+        label: '0 - Tidak Memenuhi',
+        enabled: true,
+        referensiKetentuan: 'Tidak menjawab pokok keluhan peserta sama sekali, jawaban template copas yang tidak relevan.',
+      },
+      {
+        nilai: '1',
+        label: '1 - Kurang Sesuai',
+        enabled: true,
+        referensiKetentuan: 'Hanya menjawab sebagian pertanyaan, menyisakan poin inti kendala pemohon yang belum terselesaikan.',
+      },
+      {
+        nilai: '2',
+        label: '2 - Cukup Sesuai',
+        enabled: true,
+        referensiKetentuan: 'Menjawab pokok masalah utama secara baik, namun belum menyertakan estimasi waktu proses (SLA) atau tindak lanjut.',
+      },
+      {
+        nilai: '3',
+        label: '3 - Sangat Sesuai',
+        enabled: true,
+        referensiKetentuan: 'Jawaban tuntas menyelesaikan seluruh pokok & rincian masalah, solusi konkret, menyertakan SLA dan mitigasi kendala.',
+      },
+    ],
     kriteriaContoh: [
       'Menjawab detail keluhan dari pokok hingga topik masalah.',
       'Menyertakan estimasi waktu proses (SLA) dan tindak lanjut jika ada.',
@@ -964,6 +1093,38 @@ export const INITIAL_INDICATORS: Indicator[] = [
     bobot: 15,
     skalaMin: 0,
     skalaMax: 100,
+    pilihanNilai: [
+      {
+        nilai: 'N/A',
+        label: 'N/A - Tidak Relevan',
+        enabled: true,
+        referensiKetentuan: 'Data pengiriman berupa tabel/dokumen lampiran otomatis.',
+      },
+      {
+        nilai: '0',
+        label: '0 - Tidak Memenuhi',
+        enabled: true,
+        referensiKetentuan: 'Banyak typo fatal, singkatan tidak baku (e.g. \'yg\', \'dgn\', \'kpd\'), tanpa tanda baca, dan format berantakan.',
+      },
+      {
+        nilai: '1',
+        label: '1 - Kurang Sesuai',
+        enabled: true,
+        referensiKetentuan: 'Terdapat 3-5 kesalahan ketik/tanda baca dan pemisahan paragraf kurang teratur sehingga kurang nyaman dibaca.',
+      },
+      {
+        nilai: '2',
+        label: '2 - Cukup Sesuai',
+        enabled: true,
+        referensiKetentuan: 'Tata bahasa baik dengan 1-2 salah ketik minor yang tidak mengubah arti substansi pesan.',
+      },
+      {
+        nilai: '3',
+        label: '3 - Sangat Sesuai',
+        enabled: true,
+        referensiKetentuan: 'Bahasa Indonesia baku sesuai EYD/PUEBI, tanpa typo, pemenggalan poin/paragraf rapi dan sangat mudah dipahami.',
+      },
+    ],
     kriteriaContoh: [
       'Bebas dari kesalahan pengetikan (typo).',
       'Penggunaan tanda baca huruf kapital dan titik/koma teratur.',
@@ -977,6 +1138,38 @@ export const INITIAL_INDICATORS: Indicator[] = [
     bobot: 15,
     skalaMin: 0,
     skalaMax: 100,
+    pilihanNilai: [
+      {
+        nilai: 'N/A',
+        label: 'N/A - Tidak Relevan',
+        enabled: true,
+        referensiKetentuan: 'Tiket rujukan antar unit internal yang tidak ditujukan ke peserta langsung.',
+      },
+      {
+        nilai: '0',
+        label: '0 - Tidak Memenuhi',
+        enabled: true,
+        referensiKetentuan: 'Tidak menginformasikan kanal mandiri sama sekali dan tidak ada salam penutup resmi.',
+      },
+      {
+        nilai: '1',
+        label: '1 - Kurang Sesuai',
+        enabled: true,
+        referensiKetentuan: 'Salam penutup ada namun tidak mengedukasi kanal layanan mandiri (Mobile JKN/PANDAWA).',
+      },
+      {
+        nilai: '2',
+        label: '2 - Cukup Sesuai',
+        enabled: true,
+        referensiKetentuan: 'Mengedukasi kanal digital namun nomor kontak/kanal tidak lengkap, salam penutup standar.',
+      },
+      {
+        nilai: '3',
+        label: '3 - Sangat Sesuai',
+        enabled: true,
+        referensiKetentuan: 'Edukasi kanal mandiri lengkap (Mobile JKN, PANDAWA 08118165165, Care Center 165), doa dan salam penutup resmi BPJS Kesehatan.',
+      },
+    ],
     kriteriaContoh: [
       'Mengedukasi peserta mengenai kanal layanan mandiri/digital resmi.',
       'Menanyakan apakah masih ada pertanyaan lain yang belum jelas.',

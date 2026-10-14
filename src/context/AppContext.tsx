@@ -19,6 +19,7 @@ import {
   INITIAL_TICKETS,
   INITIAL_EVALUATIONS,
   INITIAL_CALIBRATIONS,
+  DEFAULT_NILAI_OPTIONS,
 } from '../data/mockData';
 import { parseCSV, parseExcelFile, generateSampleGoogleSheetCSV } from '../utils/csvParser';
 
@@ -221,7 +222,17 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     const saved = safeStorage.getItem(STORAGE_KEYS.INDICATORS);
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed: Indicator[] = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed.map((ind) => {
+            if (ind.pilihanNilai && ind.pilihanNilai.length > 0) return ind;
+            const initial = INITIAL_INDICATORS.find((i) => i.id === ind.id);
+            return {
+              ...ind,
+              pilihanNilai: initial?.pilihanNilai || DEFAULT_NILAI_OPTIONS,
+            };
+          });
+        }
       } catch (e) {
         console.error(e);
       }
