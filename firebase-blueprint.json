@@ -1,0 +1,51 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User account information",
+      "type": "object",
+      "properties": {
+        "username": { "type": "string" },
+        "role": { "type": "string" },
+        "password": { "type": "string" }
+      },
+      "required": ["username", "role", "password"]
+    },
+    "Ticket": {
+      "title": "Ticket",
+      "description": "Support ticket data",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "status": { "type": "string" },
+        "data": { "type": "object" }
+      },
+      "required": ["id", "status"]
+    },
+    "Evaluation": {
+      "title": "Evaluation",
+      "description": "Sampling evaluation record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "ticketId": { "type": "string" },
+        "result": { "type": "object" }
+      },
+      "required": ["id", "ticketId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profiles"
+    },
+    "/tickets/{ticketId}": {
+      "schema": { "$ref": "#/entities/Ticket" },
+      "description": "Tickets and their current state"
+    },
+    "/evaluations/{evalId}": {
+      "schema": { "$ref": "#/entities/Evaluation" },
+      "description": "Sampling evaluations"
+    }
+  }
+}
