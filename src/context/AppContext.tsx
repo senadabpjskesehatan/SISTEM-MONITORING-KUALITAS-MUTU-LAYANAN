@@ -22,6 +22,18 @@ import {
   DEFAULT_NILAI_OPTIONS,
 } from '../data/mockData';
 import { parseCSV, parseExcelFile, generateSampleGoogleSheetCSV } from '../utils/csvParser';
+import {
+  collection,
+  getDocs,
+  setDoc,
+  deleteDoc,
+  doc,
+  query,
+  where,
+  updateDoc,
+  onSnapshot,
+} from 'firebase/firestore';
+import { db } from '../firebaseConfig';
 
 interface AppContextType {
   currentUser: User;
@@ -189,30 +201,29 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     return INITIAL_USERS[0];
   });
 
-  // 2. Users list (ensures all 92 users from INITIAL_USERS are included)
-  const [users, setUsers] = useState<User[]>(() => {
-    const saved = safeStorage.getItem(STORAGE_KEYS.USERS_LIST);
-    if (saved) {
+  // 2. Users list (ensures all users are included)
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
       try {
-        const parsed: User[] = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length >= INITIAL_USERS.length) {
-          const existingUsernames = new Set(parsed.map((u) => (u.username || '').toLowerCase()));
-          const missing = INITIAL_USERS.filter((u) => !existingUsernames.has((u.username || '').toLowerCase()));
-          if (missing.length === 0) {
-            return parsed;
-          }
-          const merged = [...parsed, ...missing];
-          safeStorage.setItem(STORAGE_KEYS.USERS_LIST, JSON.stringify(merged));
-          return merged;
+        const querySnapshot = await getDocs(collection(db, 'users'));
+        const usersList: User[] = [];
+        querySnapshot.forEach((doc) => {
+          usersList.push(doc.data() as User);
+        });
+        if (usersList.length > 0) {
+          setUsers(usersList);
+        } else {
+          setUsers(INITIAL_USERS);
+          // Optionally push initial users to Firestore
         }
       } catch (e) {
-        console.error(e);
+        console.error('Error fetching users:', e);
       }
-    }
-    // Initialize with all 92 users
-    safeStorage.setItem(STORAGE_KEYS.USERS_LIST, JSON.stringify(INITIAL_USERS));
-    return INITIAL_USERS;
-  });
+    };
+    fetchUsers();
+  }, []);
 
   // 3. Active Tab
   const [activeTab, setActiveTab] = useState<string>('dashboard');
@@ -240,18 +251,19 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     return INITIAL_INDICATORS;
   });
 
-  // 5. Tickets (Starts empty)
-  const [tickets, setTickets] = useState<Ticket[]>(() => {
-    const saved = safeStorage.getItem(STORAGE_KEYS.TICKETS);
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    return INITIAL_TICKETS;
-  });
+  // 5. Tickets
+  const [tickets, setTickets] = useState<Ticket[]>([]);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, 'tickets'), (snapshot) => {
+      const ticketsList: Ticket[] = [];
+      snapshot.forEach((doc) => {
+        ticketsList.push(doc.data() as Ticket);
+      });
+      setTickets(ticketsList.length > 0 ? ticketsList : INITIAL_TICKETS);
+    });
+    return () => unsubscribe();
+  }, []);
 
   // 6. Sampling Evaluations (Starts empty)
   const [evaluations, setEvaluations] = useState<SamplingEvaluation[]>(() => {
